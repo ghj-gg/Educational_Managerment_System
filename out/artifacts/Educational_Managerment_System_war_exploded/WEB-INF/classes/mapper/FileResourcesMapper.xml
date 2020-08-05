@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ed.mapper.FileResourcesMapper" >
+  <resultMap id="BaseResultMap" type="com.ed.pojo.FileResources" >
+    <id column="file_id" property="fileId" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_size" property="fileSize" jdbcType="VARCHAR" />
+    <result column="file_provider" property="fileProvider" jdbcType="VARCHAR" />
+    <result column="file_date" property="fileDate" jdbcType="VARCHAR" />
+    <result column="file_count" property="fileCount" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    file_id, file_name, file_size, file_provider, file_date, file_count
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from file_resources
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </select>
+
+  <select id="queryAll" resultMap="BaseResultMap" parameterType="com.ed.pojo.FileResources" >
+    select <include refid="Base_Column_List" /> from file_resources
+    <trim prefix=" where" suffix=" " suffixOverrides="and">
+      <if test="fileId != null and fileId !='' " >
+        file_id like CONCAT('%', #{fileId},'%') and
+      </if>
+      <if test="fileName != null and fileName !=''" >
+        file_name like CONCAT('%', #{fileName},'%') and
+      </if>
+      <if test="fileSize != null and fileSize !=''" >
+        file_size  like CONCAT('%', #{fileSize},'%') and
+      </if>
+      <if test="fileProvider != null and fileProvider !=''" >
+        file_provider  like CONCAT('%', #{fileProvider},'%')  and
+      </if>
+      <if test="fileDate != null and fileDate !=''" >
+        file_date  like CONCAT('%', #{fileDate},'%')  and
+      </if>
+      <if test="fileCount != null and fileCount !=''" >
+        file_count  like CONCAT('%', #{fileCount})'%')
+      </if>
+    </trim>
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from file_resources
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ed.pojo.FileResources" >
+    insert into file_resources (file_name, file_size,
+      file_provider, file_date, file_count
+      )
+    values
+     <foreach collection="list" item="x">
+     (#{x.fileName}, #{x.fileSize},
+      #{x.fileProvider}, #{x.fileDate},#{x.fileCount}
+      )
+     </foreach>
+  </insert>
+  <insert id="insertSelective" parameterType="com.ed.pojo.FileResources" >
+    insert into file_resources
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        file_id,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="fileSize != null" >
+        file_size,
+      </if>
+      <if test="fileProvider != null" >
+        file_provider,
+      </if>
+      <if test="fileDate != null" >
+        file_date,
+      </if>
+      <if test="fileCount != null" >
+        file_count,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fileId != null" >
+        #{fileId,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null" >
+        #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="fileProvider != null" >
+        #{fileProvider,jdbcType=VARCHAR},
+      </if>
+      <if test="fileDate != null" >
+        #{fileDate,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCount != null" >
+        #{fileCount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ed.pojo.FileResources" >
+    update file_resources
+    <set >
+      <if test="fileName != null and fileName!=''" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null and fileName!=''" >
+        file_size = #{fileSize,jdbcType=VARCHAR},
+      </if>
+      <if test="fileProvider != null and fileName!=''" >
+        file_provider = #{fileProvider,jdbcType=VARCHAR},
+      </if>
+      <if test="fileDate != null and fileName!=''" >
+        file_date = #{fileDate,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCount != null and fileName!=''" >
+        file_count = #{fileCount,jdbcType=INTEGER},
+      </if>
+    </set>
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ed.pojo.FileResources" >
+    update file_resources
+    set file_name = #{fileName,jdbcType=VARCHAR},
+      file_size = #{fileSize,jdbcType=VARCHAR},
+      file_provider = #{fileProvider,jdbcType=VARCHAR},
+      file_date = #{fileDate,jdbcType=VARCHAR},
+      file_count = #{fileCount,jdbcType=INTEGER}
+    where file_id = #{fileId,jdbcType=INTEGER}
+  </update>
+</mapper>

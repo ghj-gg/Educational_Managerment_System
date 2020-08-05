@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ed.mapper.CourseMapper" >
+  <resultMap id="BaseResultMap" type="com.ed.pojo.Course" >
+    <id column="course_id" property="courseId" jdbcType="INTEGER" />
+    <result column="course_name" property="courseName" jdbcType="VARCHAR" />
+    <result column="course_type" property="courseType" jdbcType="VARCHAR" />
+    <result column="course_credit" property="courseCredit" jdbcType="DOUBLE" />
+    <result column="user_sno" property="userSno" jdbcType="VARCHAR" />
+    <result column="course_check_method" property="courseCheckMethod" jdbcType="VARCHAR" />
+    <result column="course_teacher" property="courseTeacher" jdbcType="VARCHAR" />
+    <result column="course_location" property="courseLocation" jdbcType="VARCHAR" />
+    <result column="course_week" property="courseWeek" jdbcType="VARCHAR" />
+    <result column="course_number" property="courseNumber" jdbcType="INTEGER" />
+    <result column="course_class" property="courseClass" jdbcType="VARCHAR" />
+    <result column="course_grade" property="courseGrade" jdbcType="VARCHAR" />
+    <result column="course_semester" property="courseSemester" jdbcType="VARCHAR" />
+    <result column="course_state" property="courseState" jdbcType="INTEGER" />
+    <result column="course_person_total" property="coursePersonTotal" jdbcType="VARCHAR" />
+    <result column="course_department" property="courseDepartment" jdbcType="VARCHAR" />
+    <result column="course_class_state" property="courseClassState" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    course_id, course_name, course_type, course_credit, user_sno, course_check_method, 
+    course_teacher, course_location, course_week, course_number, course_class, course_grade, 
+    course_semester, course_state, course_person_total, course_department, course_class_state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from course
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from course
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ed.pojo.Course" >
+    insert into course (course_id, course_name, course_type, 
+      course_credit, user_sno, course_check_method, 
+      course_teacher, course_location, course_week, 
+      course_number, course_class, course_grade, 
+      course_semester, course_state, course_person_total, 
+      course_department, course_class_state)
+    values (#{courseId,jdbcType=INTEGER}, #{courseName,jdbcType=VARCHAR}, #{courseType,jdbcType=VARCHAR}, 
+      #{courseCredit,jdbcType=DOUBLE}, #{userSno,jdbcType=VARCHAR}, #{courseCheckMethod,jdbcType=VARCHAR}, 
+      #{courseTeacher,jdbcType=VARCHAR}, #{courseLocation,jdbcType=VARCHAR}, #{courseWeek,jdbcType=VARCHAR}, 
+      #{courseNumber,jdbcType=INTEGER}, #{courseClass,jdbcType=VARCHAR}, #{courseGrade,jdbcType=VARCHAR}, 
+      #{courseSemester,jdbcType=VARCHAR}, #{courseState,jdbcType=INTEGER}, #{coursePersonTotal,jdbcType=VARCHAR}, 
+      #{courseDepartment,jdbcType=VARCHAR}, #{courseClassState,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ed.pojo.Course" >
+    insert into course
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        course_id,
+      </if>
+      <if test="courseName != null" >
+        course_name,
+      </if>
+      <if test="courseType != null" >
+        course_type,
+      </if>
+      <if test="courseCredit != null" >
+        course_credit,
+      </if>
+      <if test="userSno != null" >
+        user_sno,
+      </if>
+      <if test="courseCheckMethod != null" >
+        course_check_method,
+      </if>
+      <if test="courseTeacher != null" >
+        course_teacher,
+      </if>
+      <if test="courseLocation != null" >
+        course_location,
+      </if>
+      <if test="courseWeek != null" >
+        course_week,
+      </if>
+      <if test="courseNumber != null" >
+        course_number,
+      </if>
+      <if test="courseClass != null" >
+        course_class,
+      </if>
+      <if test="courseGrade != null" >
+        course_grade,
+      </if>
+      <if test="courseSemester != null" >
+        course_semester,
+      </if>
+      <if test="courseState != null" >
+        course_state,
+      </if>
+      <if test="coursePersonTotal != null" >
+        course_person_total,
+      </if>
+      <if test="courseDepartment != null" >
+        course_department,
+      </if>
+      <if test="courseClassState != null" >
+        course_class_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="courseId != null" >
+        #{courseId,jdbcType=INTEGER},
+      </if>
+      <if test="courseName != null" >
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseType != null" >
+        #{courseType,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCredit != null" >
+        #{courseCredit,jdbcType=DOUBLE},
+      </if>
+      <if test="userSno != null" >
+        #{userSno,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCheckMethod != null" >
+        #{courseCheckMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTeacher != null" >
+        #{courseTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="courseLocation != null" >
+        #{courseLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="courseWeek != null" >
+        #{courseWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="courseNumber != null" >
+        #{courseNumber,jdbcType=INTEGER},
+      </if>
+      <if test="courseClass != null" >
+        #{courseClass,jdbcType=VARCHAR},
+      </if>
+      <if test="courseGrade != null" >
+        #{courseGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="courseSemester != null" >
+        #{courseSemester,jdbcType=VARCHAR},
+      </if>
+      <if test="courseState != null" >
+        #{courseState,jdbcType=INTEGER},
+      </if>
+      <if test="coursePersonTotal != null" >
+        #{coursePersonTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDepartment != null" >
+        #{courseDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="courseClassState != null" >
+        #{courseClassState,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ed.pojo.Course" >
+    update course
+    <set >
+      <if test="courseName != null" >
+        course_name = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseType != null" >
+        course_type = #{courseType,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCredit != null" >
+        course_credit = #{courseCredit,jdbcType=DOUBLE},
+      </if>
+      <if test="userSno != null" >
+        user_sno = #{userSno,jdbcType=VARCHAR},
+      </if>
+      <if test="courseCheckMethod != null" >
+        course_check_method = #{courseCheckMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTeacher != null" >
+        course_teacher = #{courseTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="courseLocation != null" >
+        course_location = #{courseLocation,jdbcType=VARCHAR},
+      </if>
+      <if test="courseWeek != null" >
+        course_week = #{courseWeek,jdbcType=VARCHAR},
+      </if>
+      <if test="courseNumber != null" >
+        course_number = #{courseNumber,jdbcType=INTEGER},
+      </if>
+      <if test="courseClass != null" >
+        course_class = #{courseClass,jdbcType=VARCHAR},
+      </if>
+      <if test="courseGrade != null" >
+        course_grade = #{courseGrade,jdbcType=VARCHAR},
+      </if>
+      <if test="courseSemester != null" >
+        course_semester = #{courseSemester,jdbcType=VARCHAR},
+      </if>
+      <if test="courseState != null" >
+        course_state = #{courseState,jdbcType=INTEGER},
+      </if>
+      <if test="coursePersonTotal != null" >
+        course_person_total = #{coursePersonTotal,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDepartment != null" >
+        course_department = #{courseDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="courseClassState != null" >
+        course_class_state = #{courseClassState,jdbcType=INTEGER},
+      </if>
+    </set>
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ed.pojo.Course" >
+    update course
+    set course_name = #{courseName,jdbcType=VARCHAR},
+      course_type = #{courseType,jdbcType=VARCHAR},
+      course_credit = #{courseCredit,jdbcType=DOUBLE},
+      user_sno = #{userSno,jdbcType=VARCHAR},
+      course_check_method = #{courseCheckMethod,jdbcType=VARCHAR},
+      course_teacher = #{courseTeacher,jdbcType=VARCHAR},
+      course_location = #{courseLocation,jdbcType=VARCHAR},
+      course_week = #{courseWeek,jdbcType=VARCHAR},
+      course_number = #{courseNumber,jdbcType=INTEGER},
+      course_class = #{courseClass,jdbcType=VARCHAR},
+      course_grade = #{courseGrade,jdbcType=VARCHAR},
+      course_semester = #{courseSemester,jdbcType=VARCHAR},
+      course_state = #{courseState,jdbcType=INTEGER},
+      course_person_total = #{coursePersonTotal,jdbcType=VARCHAR},
+      course_department = #{courseDepartment,jdbcType=VARCHAR},
+      course_class_state = #{courseClassState,jdbcType=INTEGER}
+    where course_id = #{courseId,jdbcType=INTEGER}
+  </update>
+</mapper>

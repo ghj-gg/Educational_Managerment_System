@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ed.mapper.DateMapper" >
+  <resultMap id="BaseResultMap" type="com.ed.pojo.Date" >
+    <id column="date_id" property="dateId" jdbcType="INTEGER" />
+    <result column="sonsult_date_start" property="sonsultDateStart" jdbcType="VARCHAR" />
+    <result column="sonsult_date_end" property="sonsultDateEnd" jdbcType="VARCHAR" />
+    <result column="course_date_start" property="courseDateStart" jdbcType="VARCHAR" />
+    <result column="course_date_end" property="courseDateEnd" jdbcType="VARCHAR" />
+    <result column="user_sno" property="userSno" jdbcType="VARCHAR" />
+    <result column="semester" property="semester" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    date_id, sonsult_date_start, sonsult_date_end, course_date_start, course_date_end, 
+    user_sno, semester
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from date
+    where date_id = #{dateId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from date
+    where date_id = #{dateId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ed.pojo.Date" >
+    insert into date (date_id, sonsult_date_start, sonsult_date_end, 
+      course_date_start, course_date_end, user_sno, 
+      semester)
+    values (#{dateId,jdbcType=INTEGER}, #{sonsultDateStart,jdbcType=VARCHAR}, #{sonsultDateEnd,jdbcType=VARCHAR}, 
+      #{courseDateStart,jdbcType=VARCHAR}, #{courseDateEnd,jdbcType=VARCHAR}, #{userSno,jdbcType=VARCHAR}, 
+      #{semester,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ed.pojo.Date" >
+    insert into date
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dateId != null" >
+        date_id,
+      </if>
+      <if test="sonsultDateStart != null" >
+        sonsult_date_start,
+      </if>
+      <if test="sonsultDateEnd != null" >
+        sonsult_date_end,
+      </if>
+      <if test="courseDateStart != null" >
+        course_date_start,
+      </if>
+      <if test="courseDateEnd != null" >
+        course_date_end,
+      </if>
+      <if test="userSno != null" >
+        user_sno,
+      </if>
+      <if test="semester != null" >
+        semester,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dateId != null" >
+        #{dateId,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultDateStart != null" >
+        #{sonsultDateStart,jdbcType=VARCHAR},
+      </if>
+      <if test="sonsultDateEnd != null" >
+        #{sonsultDateEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDateStart != null" >
+        #{courseDateStart,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDateEnd != null" >
+        #{courseDateEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="userSno != null" >
+        #{userSno,jdbcType=VARCHAR},
+      </if>
+      <if test="semester != null" >
+        #{semester,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ed.pojo.Date" >
+    update date
+    <set >
+      <if test="sonsultDateStart != null" >
+        sonsult_date_start = #{sonsultDateStart,jdbcType=VARCHAR},
+      </if>
+      <if test="sonsultDateEnd != null" >
+        sonsult_date_end = #{sonsultDateEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDateStart != null" >
+        course_date_start = #{courseDateStart,jdbcType=VARCHAR},
+      </if>
+      <if test="courseDateEnd != null" >
+        course_date_end = #{courseDateEnd,jdbcType=VARCHAR},
+      </if>
+      <if test="userSno != null" >
+        user_sno = #{userSno,jdbcType=VARCHAR},
+      </if>
+      <if test="semester != null" >
+        semester = #{semester,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where date_id = #{dateId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ed.pojo.Date" >
+    update date
+    set sonsult_date_start = #{sonsultDateStart,jdbcType=VARCHAR},
+      sonsult_date_end = #{sonsultDateEnd,jdbcType=VARCHAR},
+      course_date_start = #{courseDateStart,jdbcType=VARCHAR},
+      course_date_end = #{courseDateEnd,jdbcType=VARCHAR},
+      user_sno = #{userSno,jdbcType=VARCHAR},
+      semester = #{semester,jdbcType=VARCHAR}
+    where date_id = #{dateId,jdbcType=INTEGER}
+  </update>
+
+<!--通过学期查询时间-->
+  <select id="selectDateBySemesterId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select <include refid="Base_Column_List" />
+    from date where date.semester = #{semester}
+  </select>
+</mapper>

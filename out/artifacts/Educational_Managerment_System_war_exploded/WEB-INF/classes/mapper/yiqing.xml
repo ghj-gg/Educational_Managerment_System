@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ed.mapper.YiqingMapper">
+    <select id="deadCount" resultType="java.lang.Integer">
+      SELECT sum(deadCount) FROM info where `code` &lt; 35
+    </select>
+    <select id="confimCount" resultType="java.lang.Integer">
+      SELECT sum(confirmCount) FROM info where `code` &lt; 35
+    </select>
+    <select id="curedCount" resultType="java.lang.Integer">
+      SELECT sum(curedCount) FROM info where `code` &lt; 35
+    </select>
+    <select id="provinceCuredQianWu" resultType="com.ed.pojo.Info" parameterType="java.lang.String">
+        select * from info where provinceName = #{cityName} and areaName!='' order by curedCount desc limit 5
+    </select>
+    <select id="deadCountQianWu" resultType="com.ed.pojo.Info" parameterType="java.lang.String">
+        select * from info where provinceName = #{cityName} and areaName!='' order by deadCount desc limit 5
+    </select>
+    <select id="provinceyiqingfenxi" resultType="com.ed.pojo.Info" parameterType="java.lang.String">
+        select * from info where provinceName = #{cityName} and areaName=''
+    </select>
+    <select id="selectChinaInfo" resultType="com.ed.pojo.Info">
+     SELECT * FROM info where `code` &lt;  35
+    </select>
+</mapper>

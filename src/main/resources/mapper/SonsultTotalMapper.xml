@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ed.mapper.SonsultTotalMapper" >
+  <resultMap id="BaseResultMap" type="com.ed.pojo.SonsultTotal" >
+    <id column="sonsult_total_id" property="sonsultTotalId" jdbcType="INTEGER" />
+    <result column="sonsult_total_a" property="sonsultTotalA" jdbcType="INTEGER" />
+    <result column="sonsult_total_b" property="sonsultTotalB" jdbcType="INTEGER" />
+    <result column="sonsult_total_c" property="sonsultTotalC" jdbcType="INTEGER" />
+    <result column="sonsult_total_d" property="sonsultTotalD" jdbcType="INTEGER" />
+    <result column="sonsult_total_message" property="sonsultTotalMessage" jdbcType="VARCHAR" />
+    <result column="sonsult_total_count" property="sonsultTotalCount" jdbcType="INTEGER" />
+    <result column="sonsult_total_tId" property="sonsultTotalTid" jdbcType="INTEGER" />
+    <result column="sonsult_total_class" property="sonsultTotalClass" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sonsult_total_id, sonsult_total_a, sonsult_total_b, sonsult_total_c, sonsult_total_d, 
+    sonsult_total_message, sonsult_total_count, sonsult_total_tId, sonsult_total_class
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sonsult_total
+    where sonsult_total_id = #{sonsultTotalId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sonsult_total
+    where sonsult_total_id = #{sonsultTotalId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ed.pojo.SonsultTotal" >
+    insert into sonsult_total (sonsult_total_id, sonsult_total_a, sonsult_total_b, 
+      sonsult_total_c, sonsult_total_d, sonsult_total_message, 
+      sonsult_total_count, sonsult_total_tId, sonsult_total_class
+      )
+    values (#{sonsultTotalId,jdbcType=INTEGER}, #{sonsultTotalA,jdbcType=INTEGER}, #{sonsultTotalB,jdbcType=INTEGER}, 
+      #{sonsultTotalC,jdbcType=INTEGER}, #{sonsultTotalD,jdbcType=INTEGER}, #{sonsultTotalMessage,jdbcType=VARCHAR}, 
+      #{sonsultTotalCount,jdbcType=INTEGER}, #{sonsultTotalTid,jdbcType=INTEGER}, #{sonsultTotalClass,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ed.pojo.SonsultTotal" >
+    insert into sonsult_total
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sonsultTotalId != null" >
+        sonsult_total_id,
+      </if>
+      <if test="sonsultTotalA != null" >
+        sonsult_total_a,
+      </if>
+      <if test="sonsultTotalB != null" >
+        sonsult_total_b,
+      </if>
+      <if test="sonsultTotalC != null" >
+        sonsult_total_c,
+      </if>
+      <if test="sonsultTotalD != null" >
+        sonsult_total_d,
+      </if>
+      <if test="sonsultTotalMessage != null" >
+        sonsult_total_message,
+      </if>
+      <if test="sonsultTotalCount != null" >
+        sonsult_total_count,
+      </if>
+      <if test="sonsultTotalTid != null" >
+        sonsult_total_tId,
+      </if>
+      <if test="sonsultTotalClass != null" >
+        sonsult_total_class,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sonsultTotalId != null" >
+        #{sonsultTotalId,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultTotalA != null" >
+        #{sonsultTotalA,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultTotalB != null" >
+        #{sonsultTotalB,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultTotalC != null" >
+        #{sonsultTotalC,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultTotalD != null" >
+        #{sonsultTotalD,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultTotalMessage != null" >
+        #{sonsultTotalMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="sonsultTotalCount != null" >
+        #{sonsultTotalCount,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultTotalTid != null" >
+        #{sonsultTotalTid,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultTotalClass != null" >
+        #{sonsultTotalClass,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ed.pojo.SonsultTotal" >
+    update sonsult_total
+    <set >
+      <if test="sonsultTotalA != null" >
+        sonsult_total_a = #{sonsultTotalA,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultTotalB != null" >
+        sonsult_total_b = #{sonsultTotalB,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultTotalC != null" >
+        sonsult_total_c = #{sonsultTotalC,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultTotalD != null" >
+        sonsult_total_d = #{sonsultTotalD,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultTotalMessage != null" >
+        sonsult_total_message = #{sonsultTotalMessage,jdbcType=VARCHAR},
+      </if>
+      <if test="sonsultTotalCount != null" >
+        sonsult_total_count = #{sonsultTotalCount,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultTotalTid != null" >
+        sonsult_total_tId = #{sonsultTotalTid,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultTotalClass != null" >
+        sonsult_total_class = #{sonsultTotalClass,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sonsult_total_id = #{sonsultTotalId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ed.pojo.SonsultTotal" >
+    update sonsult_total
+    set sonsult_total_a = #{sonsultTotalA,jdbcType=INTEGER},
+      sonsult_total_b = #{sonsultTotalB,jdbcType=INTEGER},
+      sonsult_total_c = #{sonsultTotalC,jdbcType=INTEGER},
+      sonsult_total_d = #{sonsultTotalD,jdbcType=INTEGER},
+      sonsult_total_message = #{sonsultTotalMessage,jdbcType=VARCHAR},
+      sonsult_total_count = #{sonsultTotalCount,jdbcType=INTEGER},
+      sonsult_total_tId = #{sonsultTotalTid,jdbcType=INTEGER},
+      sonsult_total_class = #{sonsultTotalClass,jdbcType=VARCHAR}
+    where sonsult_total_id = #{sonsultTotalId,jdbcType=INTEGER}
+  </update>
+
+<!--通过id查询-->
+  <select id="selectSonsultTotalByUserSno" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select <include refid="Base_Column_List" />
+    from sonsult_total as st where st.sonsult_total_tId = #{userId}
+  </select>
+</mapper>

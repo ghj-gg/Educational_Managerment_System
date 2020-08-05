@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!--引入配置好的缓存bean-->
+       <!-- <property name="cacheManager" ref="cacheManager"/>-->
+        <!-- Single realm app.  If you have multiple realms, use the 'realms' property instead. -->
+        <!--设置session的状态-->
+        <property name="sessionMode" value="native"/>
+        <!--引入配置好的自定义的realm -->
+        <property name="realm" ref="jdbcRealm"/>
+    </bean>
+ <!--  设置缓存 <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+             <property name="cacheManager" ref="ehCacheManager"/>
+        <property name="cacheManagerConfigFile" value="classpath:some/path/to/ehcache.xml"/> &ndash;&gt;
+    </bean>-->
+<!--    <bean id="cacheManager" class="org.apache.shiro.cache.ehcache.EhCacheManager">
+             <property name="cacheManager" ref="ehCacheManager"/> &ndash;&gt;
+        <property name="cacheManagerConfigFile" value="classpath:some/path/to/ehcache.xml"/> &ndash;&gt;
+    </bean>-->
+
+    <!--需要使用自定义的realm 来进行shiro 认证和授权-->
+    <bean id="jdbcRealm" class="com.ed.config.UserRealm">
+        <property name="name" value="jdbcRealm"/>
+        <!--设置加密方式-->
+        <property name="credentialsMatcher">
+            <bean class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+              <!--  <property name="hashAlgorithmName" value="SHA-256"/>-->
+                <!--加密方式-->
+                <property name="hashAlgorithmName" value="MD5"/>
+                <!--加密多少次-->
+                <property name="hashIterations" value="1024"/>
+            </bean>
+        </property>
+    </bean>
+
+
+    <!--配置生命方式-->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
+          depends-on="lifecycleBeanPostProcessor"/>
+
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+
+    <!--   配置安全管理器 -->
+    <bean id="secureRemoteInvocationExecutor" class="org.apache.shiro.spring.remoting.SecureRemoteInvocationExecutor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+
+    <!--配置shiro过滤器以便被web.xml识别-->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <!--在未被认证之前都会重定向到vaule里面的url去-->
+        <property name="loginUrl" value="/loginController/noLogin.do"/>
+        <!--认证成功执行的url-->
+        <property name="successUrl" value=""/>
+        <!--无法认证的url执行url-->
+        <property name="unauthorizedUrl" value=""/>
+        <!-- <property name="filters">
+            <util:map>
+                <entry key="aName" value-ref="someFilterPojo"/>
+            </util:map>
+        </property> -->
+        <!--设置一些用户权限  访问方式...-->
+        <!--
+           anon:匿名访问（不用认证就可以正常访问的url）
+           authc:认证之后才能正常访问url
+        -->
+        <property name="filterChainDefinitions">
+            <value>
+                /static/**=anon
+                /loginController/**=anon
+                /loginController/login.do=anon
+                /** = authc
+            </value>
+        </property>
+    </bean>
+
+</beans>

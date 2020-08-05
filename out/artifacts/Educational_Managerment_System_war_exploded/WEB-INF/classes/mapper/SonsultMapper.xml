@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ed.mapper.SonsultMapper" >
+  <resultMap id="BaseResultMap" type="com.ed.pojo.Sonsult" >
+    <id column="sonsult_id" property="sonsultId" jdbcType="INTEGER" />
+    <result column="sonsult_semester" property="sonsultSemester" jdbcType="VARCHAR" />
+    <result column="sonsult_course" property="sonsultCourse" jdbcType="VARCHAR" />
+    <result column="sonsult_teacher" property="sonsultTeacher" jdbcType="VARCHAR" />
+    <result column="sonsult_state" property="sonsultState" jdbcType="INTEGER" />
+    <result column="sonsult_start" property="sonsultStart" jdbcType="VARCHAR" />
+    <result column="sonsult_end" property="sonsultEnd" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sonsult_id, sonsult_semester, sonsult_course, sonsult_teacher, sonsult_state, sonsult_start, 
+    sonsult_end
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from sonsult
+    where sonsult_id = #{sonsultId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from sonsult
+    where sonsult_id = #{sonsultId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ed.pojo.Sonsult" >
+    insert into sonsult (sonsult_id, sonsult_semester, sonsult_course, 
+      sonsult_teacher, sonsult_state, sonsult_start, 
+      sonsult_end)
+    values (#{sonsultId,jdbcType=INTEGER}, #{sonsultSemester,jdbcType=VARCHAR}, #{sonsultCourse,jdbcType=VARCHAR}, 
+      #{sonsultTeacher,jdbcType=VARCHAR}, #{sonsultState,jdbcType=INTEGER}, #{sonsultStart,jdbcType=VARCHAR}, 
+      #{sonsultEnd,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ed.pojo.Sonsult" >
+    insert into sonsult
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="sonsultId != null" >
+        sonsult_id,
+      </if>
+      <if test="sonsultSemester != null" >
+        sonsult_semester,
+      </if>
+      <if test="sonsultCourse != null" >
+        sonsult_course,
+      </if>
+      <if test="sonsultTeacher != null" >
+        sonsult_teacher,
+      </if>
+      <if test="sonsultState != null" >
+        sonsult_state,
+      </if>
+      <if test="sonsultStart != null" >
+        sonsult_start,
+      </if>
+      <if test="sonsultEnd != null" >
+        sonsult_end,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="sonsultId != null" >
+        #{sonsultId,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultSemester != null" >
+        #{sonsultSemester,jdbcType=VARCHAR},
+      </if>
+      <if test="sonsultCourse != null" >
+        #{sonsultCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="sonsultTeacher != null" >
+        #{sonsultTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="sonsultState != null" >
+        #{sonsultState,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultStart != null" >
+        #{sonsultStart,jdbcType=VARCHAR},
+      </if>
+      <if test="sonsultEnd != null" >
+        #{sonsultEnd,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ed.pojo.Sonsult" >
+    update sonsult
+    <set >
+      <if test="sonsultSemester != null" >
+        sonsult_semester = #{sonsultSemester,jdbcType=VARCHAR},
+      </if>
+      <if test="sonsultCourse != null" >
+        sonsult_course = #{sonsultCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="sonsultTeacher != null" >
+        sonsult_teacher = #{sonsultTeacher,jdbcType=VARCHAR},
+      </if>
+      <if test="sonsultState != null" >
+        sonsult_state = #{sonsultState,jdbcType=INTEGER},
+      </if>
+      <if test="sonsultStart != null" >
+        sonsult_start = #{sonsultStart,jdbcType=VARCHAR},
+      </if>
+      <if test="sonsultEnd != null" >
+        sonsult_end = #{sonsultEnd,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sonsult_id = #{sonsultId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ed.pojo.Sonsult" >
+    update sonsult
+    set sonsult_semester = #{sonsultSemester,jdbcType=VARCHAR},
+      sonsult_course = #{sonsultCourse,jdbcType=VARCHAR},
+      sonsult_teacher = #{sonsultTeacher,jdbcType=VARCHAR},
+      sonsult_state = #{sonsultState,jdbcType=INTEGER},
+      sonsult_start = #{sonsultStart,jdbcType=VARCHAR},
+      sonsult_end = #{sonsultEnd,jdbcType=VARCHAR}
+    where sonsult_id = #{sonsultId,jdbcType=INTEGER}
+  </update>
+<!--  通过用户id查询-->
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select
+    s.*
+    from user as u,sonsult as s,user_sonsult as us
+    where u.user_id = us.user_id and us.sonsult_id = s.sonsult_id and u.user_id = #{userId}
+  </select>
+</mapper>
