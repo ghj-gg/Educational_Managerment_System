@@ -37,8 +37,12 @@
                     <span class="x-red">*</span>10分
                 </label>
                 <div class="layui-input-block">
-                    <input type="text" id="a" name="a" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input">
+                    <%--<input type="text" id="a" name="a" required="" lay-verify="required"--%>
+                    <%--       autocomplete="off" class="layui-input">--%>
+                        <input type="radio" name="a" value="3" lay-skin="primary" title="3分">
+                        <input type="radio" name="a" value="5" lay-skin="primary" title="5分">
+                        <input type="radio" name="a" value="7" lay-skin="primary" title="7分">
+                        <input type="radio" name="a" value="10" lay-skin="primary" title="10分">
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
@@ -48,8 +52,10 @@
                     <span class="x-red">*</span>10分
                 </label>
                 <div class="layui-input-block">
-                    <input type="text" id="b" name="b" required="" lay-verify="required"
-                           autocomplete="off" class="layui-input">
+                    <input type="radio" name="b" value="3" lay-skin="primary" title="3分">
+                    <input type="radio" name="b" value="5" lay-skin="primary" title="5分">
+                    <input type="radio" name="b" value="7" lay-skin="primary" title="7分">
+                    <input type="radio" name="b" value="10" lay-skin="primary" title="10分">
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
@@ -59,11 +65,12 @@
                     <span class="x-red">*</span>10分
                 </label>
                 <div class="layui-input-block">
-                    <div class="layui-input-block">
-                        <input type="text" id="c" name="c" required="" lay-verify="required"
-                               autocomplete="off" class="layui-input">
+                        <input type="radio" name="c" value="3" lay-skin="primary" title="3分">
+                        <input type="radio" name="c" value="5" lay-skin="primary" title="5分">
+                        <input type="radio" name="c" value="7" lay-skin="primary" title="7分">
+                        <input type="radio" name="c" value="10" lay-skin="primary" title="10分">
                     </div>
-            </div>
+
             </div>
             <div class="layui-form-item layui-form-text">
                 <label for="desc">
@@ -72,10 +79,11 @@
                     <span class="x-red">*</span>10分
                 </label>
                 <div class="layui-input-block">
-                    <div class="layui-input-block">
-                        <input type="text" id="d" name="d" required="" lay-verify="required"
-                               autocomplete="off" class="layui-input">
-                    </div>
+                        <input type="radio" name="d" value="3" lay-skin="primary" title="3分">
+                        <input type="radio" name="d" value="5" lay-skin="primary" title="5分">
+                        <input type="radio" name="d" value="7" lay-skin="primary" title="7分">
+                        <input type="radio" name="d" value="10" lay-skin="primary" title="10分">
+
                 </div>
             </div>
             <div class="layui-form-item layui-form-text">
@@ -99,16 +107,16 @@
     });
     //提交
     function submit() {
-        var a = $("#a").val();
-        var b = $("#b").val();
-        var c = $("#c").val();
-        var d = $("#d").val();
+        var a = $("input[name='a']:checked").val();
+        var b = $("input[name='b']:checked").val();
+        var c = $("input[name='c']:checked").val();
+        var d = $("input[name='d']:checked").val();
         var desc = $("#desc").val();
-        // alert("a="+a);
-        // alert("b="+b);
-        // alert("c="+c);
-        // alert("d="+d);
-        // alert("desc="+desc);
+        alert("a="+a);
+        alert("b="+b);
+        alert("c="+c);
+        alert("d="+d);
+        alert("desc="+desc);
         //构建js对象
         params = {
             "sonsultTotalA":a,

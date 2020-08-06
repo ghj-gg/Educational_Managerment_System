@@ -140,9 +140,4 @@
     where sonsult_total_id = #{sonsultTotalId,jdbcType=INTEGER}
   </update>
 
-<!--通过id查询-->
-  <select id="selectSonsultTotalByUserSno" resultMap="BaseResultMap" parameterType="java.lang.Integer">
-    select <include refid="Base_Column_List" />
-    from sonsult_total as st where st.sonsult_total_tId = #{userId}
-  </select>
 </mapper>

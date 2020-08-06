@@ -2,14 +2,12 @@ package com.ed.controller;
 
 import com.ed.pojo.Sonsult;
 import com.ed.pojo.SonsultTotal;
-import com.ed.pojo.User;
 import com.ed.service.SonsultService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.HashMap;
@@ -46,6 +44,7 @@ public class SonsultController {
     @RequestMapping("sonsult.ajax")
     @ResponseBody
     public HashMap<String,Object> sonsult(Sonsult sonsult){
+
         return sonsultService.selectSonsultByPage(sonsult);
     }
 
@@ -76,18 +75,5 @@ public class SonsultController {
         return map;
     }
 
-    /**
-     * 跳转综合评教页面
-     * @return
-     */
-    @RequestMapping("sonsultTotalPage.do")
-    public String sonsultTotalPage(){
-        return "student/sonsultTotal";
-    }
 
-    @RequestMapping("sonsultTotal.ajax")
-    @ResponseBody
-    public HashMap<String,Object> sonsultTotal(SonsultTotal sonsultTotal){
-        return sonsultService.selectSonsultTotalByPage(sonsultTotal);
-    }
 }

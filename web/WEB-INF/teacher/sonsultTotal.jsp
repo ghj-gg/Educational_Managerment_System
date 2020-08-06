@@ -23,6 +23,7 @@
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="${pageContext.request.contextPath}/static/js/jquery.min.js"></script>
 </head>
 <body onload="loadSonsultTotal(1)">
 <div class="layui-fluid">
@@ -34,13 +35,13 @@
                         <thead>
                         <th>ID</th>
                         <th>班级</th>
-                        <th>评教总分</th>
-                        <th>操作</th>
+                        <th>评教平均分</th>
                         </thead>
                         <tbody id="tbody">
                         </tbody>
                     </table>
                 </div>
+
             </div>
         </div>
     </div>
@@ -50,6 +51,7 @@
 <script>
     var pPage;
     var nPage;
+
     //上一页
     function prePage() {
         loadSonsultTotal(pPage)
@@ -60,24 +62,48 @@
     }
     function loadSonsultTotal(p) {
         $.ajax({
-            url:"${pageContext.request.contextPath}/sonsultController/sonsultTotal.ajax",
+            url:"${pageContext.request.contextPath}/sonsultTotalController/sonsultTotal.ajax",
             typt:"post",
             data:{"page":p},
             dataType:"json",
             success:function (data) {
                 pPage=data.prePage;
                 nPage=data.nextPage;
+                numPage=data.numPage;
+                endPage=data.endPage;
+                indexPage=data.indexPage;
                 var html = "";
                 for (var i=0;i<data.list.length;i++){
                     html+="<tr>"+
-                        "<td name='sonsultId'>"+data.list[i].sonsultId+"</td>"+
-                        "<td name='sonsultCourse'>"+data.list[i].sonsultCourse+"</td>"+
-                        "<td name='sonsultTeacher'>"+data.list[i].sonsultTeacher+"</td>"+
-                        "<td><button class='layui-btn' onclick='sonsultPage(this)'>查看</button></td>"+"<tr>"
+                        "<td name='claasId'>"+data.list[i].claasId+"</td>"+
+                        "<td name='classC'>"+data.list[i].classC+"</td>"+
+                        "<td><button class='layui-btn' onclick='count(this)'>查看分数</button></td>"+"<tr>"
                 }
                 $("tbody").html(html)
             }
         })
+    }
+    function count(obj) {
+        var classId = $(obj).parent().parent().find("td").eq(0).text();
+        var classC = $(obj).parent().parent().find("td").eq(1).text();
+        //构建js对象
+        params= {
+            "classId":classId,
+            "classC":classC
+        };
+        $.ajax({
+            url:"${pageContext.request.contextPath}/sonsultTotalController/allCount.ajax",
+            type:"get",
+            data:params,
+            dataType:"json",
+            success:function (data){
+                layer.alert("您的分数为："+data.info, {icon: 6});
+            }
+        })
+    }
+    function messagePage(obj) {
+        //打开评语页面
+        xadmin.open("评教","${pageContext.request.contextPath}/sonsultTotalController/messagePage.do",600,400);
     }
 </script>
 </html>

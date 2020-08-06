@@ -21,6 +21,16 @@ public class SonsultTotal extends MyPage{
 
     private String sonsultTotalClass;
 
+    private double avg;
+
+    public double getAvg() {
+        return avg;
+    }
+
+    public void setAvg(double avg) {
+        this.avg = avg;
+    }
+
     public Integer getSonsultTotalId() {
         return sonsultTotalId;
     }
@@ -96,7 +106,7 @@ public class SonsultTotal extends MyPage{
     public SonsultTotal() {
     }
 
-    public SonsultTotal(Integer sonsultTotalId, Integer sonsultTotalA, Integer sonsultTotalB, Integer sonsultTotalC, Integer sonsultTotalD, String sonsultTotalMessage, Integer sonsultTotalCount, Integer sonsultTotalTid, String sonsultTotalClass) {
+    public SonsultTotal(Integer sonsultTotalId, Integer sonsultTotalA, Integer sonsultTotalB, Integer sonsultTotalC, Integer sonsultTotalD, String sonsultTotalMessage, Integer sonsultTotalCount, Integer sonsultTotalTid, String sonsultTotalClass, double avg) {
         this.sonsultTotalId = sonsultTotalId;
         this.sonsultTotalA = sonsultTotalA;
         this.sonsultTotalB = sonsultTotalB;
@@ -106,6 +116,7 @@ public class SonsultTotal extends MyPage{
         this.sonsultTotalCount = sonsultTotalCount;
         this.sonsultTotalTid = sonsultTotalTid;
         this.sonsultTotalClass = sonsultTotalClass;
+        this.avg = avg;
     }
 
     @Override
@@ -120,6 +131,7 @@ public class SonsultTotal extends MyPage{
                 ", sonsultTotalCount=" + sonsultTotalCount +
                 ", sonsultTotalTid=" + sonsultTotalTid +
                 ", sonsultTotalClass='" + sonsultTotalClass + '\'' +
+                ", avg=" + avg +
                 '}';
     }
 }

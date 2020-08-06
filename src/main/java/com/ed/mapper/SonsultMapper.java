@@ -1,5 +1,6 @@
 package com.ed.mapper;
 
+import com.ed.pojo.Course;
 import com.ed.pojo.Sonsult;
 
 import java.util.List;
@@ -17,5 +18,7 @@ public interface SonsultMapper {
 
     int updateByPrimaryKey(Sonsult record);
 
-    List<Sonsult> selectByUserId(Integer userId);
+    List<Sonsult> selectByUserId(String userId);
+
+    List<Course> selectByCourse(String courseName);
 }

@@ -137,7 +137,7 @@
                             </shiro:hasRole>
                             <shiro:hasRole name="teacher">
                             <li>
-                                <a onclick="xadmin.add_tab('综合评教','${pageContext.request.contextPath}/sonsultController/sonsultTotalPage.do')">
+                                <a onclick="xadmin.add_tab('综合评教','${pageContext.request.contextPath}/sonsultTotalController/sonsultTotalPage.do')">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>综合评教</cite></a>
                             </li>

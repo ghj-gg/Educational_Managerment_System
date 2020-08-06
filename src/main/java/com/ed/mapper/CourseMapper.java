@@ -2,6 +2,8 @@ package com.ed.mapper;
 
 import com.ed.pojo.Course;
 
+import java.util.List;
+
 public interface CourseMapper {
     int deleteByPrimaryKey(Integer courseId);
 
@@ -14,4 +16,8 @@ public interface CourseMapper {
     int updateByPrimaryKeySelective(Course record);
 
     int updateByPrimaryKey(Course record);
+
+    List<Course> selectByUserSon(String userSno);
+
+
 }

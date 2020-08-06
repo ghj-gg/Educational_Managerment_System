@@ -14,6 +14,4 @@ public interface SonsultService {
     HashMap selectSonsultByPage(Sonsult sonsult);
 
     int addSonsultTotal(SonsultTotal sonsultTotal);
-
-    HashMap<String, Object> selectSonsultTotalByPage(SonsultTotal sonsultTotal);
 }

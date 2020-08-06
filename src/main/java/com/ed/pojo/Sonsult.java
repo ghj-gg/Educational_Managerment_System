@@ -15,6 +15,16 @@ public class Sonsult extends MyPage{
 
     private String sonsultEnd;
 
+    private String userSno;
+
+    public String getUserSno() {
+        return userSno;
+    }
+
+    public void setUserSno(String userSno) {
+        this.userSno = userSno;
+    }
+
     public Integer getSonsultId() {
         return sonsultId;
     }

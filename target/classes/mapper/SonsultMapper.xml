@@ -9,10 +9,11 @@
     <result column="sonsult_state" property="sonsultState" jdbcType="INTEGER" />
     <result column="sonsult_start" property="sonsultStart" jdbcType="VARCHAR" />
     <result column="sonsult_end" property="sonsultEnd" jdbcType="VARCHAR" />
+    <result column="user_sno" property="userSno" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
     sonsult_id, sonsult_semester, sonsult_course, sonsult_teacher, sonsult_state, sonsult_start, 
-    sonsult_end
+    sonsult_end,user_sno
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -27,10 +28,10 @@
   <insert id="insert" parameterType="com.ed.pojo.Sonsult" >
     insert into sonsult (sonsult_id, sonsult_semester, sonsult_course, 
       sonsult_teacher, sonsult_state, sonsult_start, 
-      sonsult_end)
+      sonsult_end,user_sno)
     values (#{sonsultId,jdbcType=INTEGER}, #{sonsultSemester,jdbcType=VARCHAR}, #{sonsultCourse,jdbcType=VARCHAR}, 
       #{sonsultTeacher,jdbcType=VARCHAR}, #{sonsultState,jdbcType=INTEGER}, #{sonsultStart,jdbcType=VARCHAR}, 
-      #{sonsultEnd,jdbcType=VARCHAR})
+      #{sonsultEnd,jdbcType=VARCHAR},#{user_sno,jdbcType=VARCHAR)
   </insert>
   <insert id="insertSelective" parameterType="com.ed.pojo.Sonsult" >
     insert into sonsult
@@ -56,6 +57,9 @@
       <if test="sonsultEnd != null" >
         sonsult_end,
       </if>
+      <if test="userSno != null" >
+        user_sno,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="sonsultId != null" >
@@ -79,6 +83,10 @@
       <if test="sonsultEnd != null" >
         #{sonsultEnd,jdbcType=VARCHAR},
       </if>
+      <if test="userSno != null" >
+        #{userSno,jdbcType=VARCHAR},
+      </if>
+
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.ed.pojo.Sonsult" >
@@ -102,6 +110,10 @@
       <if test="sonsultEnd != null" >
         sonsult_end = #{sonsultEnd,jdbcType=VARCHAR},
       </if>
+      <if test="userSno != null" >
+        user_sno = #{sonsultEnd,jdbcType=VARCHAR},
+      </if>
+
     </set>
     where sonsult_id = #{sonsultId,jdbcType=INTEGER}
   </update>
@@ -112,14 +124,24 @@
       sonsult_teacher = #{sonsultTeacher,jdbcType=VARCHAR},
       sonsult_state = #{sonsultState,jdbcType=INTEGER},
       sonsult_start = #{sonsultStart,jdbcType=VARCHAR},
-      sonsult_end = #{sonsultEnd,jdbcType=VARCHAR}
+      sonsult_end = #{sonsultEnd,jdbcType=VARCHAR},
+      user_sno = #{userSno,jdbcType=VARCHAR
+
     where sonsult_id = #{sonsultId,jdbcType=INTEGER}
   </update>
 <!--  通过用户id查询-->
-  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
     select
-    s.*
-    from user as u,sonsult as s,user_sonsult as us
-    where u.user_id = us.user_id and us.sonsult_id = s.sonsult_id and u.user_id = #{userId}
+    <include refid="Base_Column_List" />
+    from sonsult
+    where user_sno = #{userId}
+  </select>
+
+<!--通过课程查询-->
+  <select id="selectByCourse"  resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from sonsult
+    where sonsult_course = #{courseName}
   </select>
 </mapper>

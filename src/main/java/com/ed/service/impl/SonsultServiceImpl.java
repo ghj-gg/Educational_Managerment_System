@@ -1,9 +1,7 @@
 package com.ed.service.impl;
 
-import com.ed.mapper.DateMapper;
-import com.ed.mapper.SonsultMapper;
-import com.ed.mapper.SonsultTotalMapper;
-import com.ed.mapper.UserMapper;
+import com.ed.mapper.*;
+import com.ed.pojo.Course;
 import com.ed.pojo.Sonsult;
 import com.ed.pojo.SonsultTotal;
 import com.ed.pojo.User;
@@ -34,12 +32,14 @@ public class SonsultServiceImpl implements SonsultService {
     @Autowired
     SonsultTotalMapper sonsultTotalMapper;
 
+    @Autowired
+    CourseMapper courseMapper;
+
     @Override
     public int sonsultPage() throws Exception{
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
-        User user = new User();
-        user = (User)session.getAttribute("user");
+        User user = (User)session.getAttribute("user");
         System.out.println("跳转评教页面获取的User："+user.toString());
         //通过学期查询时间
         com.ed.pojo.Date semesterDate = dateMapper.selectDateBySemesterId(user.getUserSemester());
@@ -54,6 +54,26 @@ public class SonsultServiceImpl implements SonsultService {
             System.out.println("评教时间已结束");
             return 2;
         }
+        //添加评教对象
+        Sonsult s = new Sonsult();
+        //查询当前学期
+        User u = userMapper.selectByPrimaryKey(user.getUserId());
+        //查询课程、教师
+        List<Course> list = courseMapper.selectByUserSon(user.getUserSno());
+        //通过查询到的课程查询Sonsult表中是否已经存在了该课程
+        for (Course c : list){
+            List<Course> list1 = sonsultMapper.selectByCourse(c.getCourseName());
+            System.out.println(list1.size());
+            if (list1.size()==0){
+                System.out.println("进来了");
+                    s.setSonsultSemester(u.getUserSemester());
+                    s.setSonsultCourse(c.getCourseName());
+                    s.setSonsultTeacher(c.getCourseTeacher());
+                    s.setSonsultState(0);
+                    s.setUserSno(user.getUserSno());
+                    sonsultMapper.insertSelective(s);
+            }
+        }
         return 3;
     }
 
@@ -64,7 +84,7 @@ public class SonsultServiceImpl implements SonsultService {
         User user = (User)session.getAttribute("user");
         System.out.println("User："+user.toString());
         //通过用户id获取Sonsult对象
-        List<Sonsult> list = sonsultMapper.selectByUserId(user.getUserId());
+        List<Sonsult> list = sonsultMapper.selectByUserId(user.getUserSno());
         PageHelper.startPage(sonsult.getPage(),sonsult.getRow());
         PageInfo<Sonsult> pageInfo = new PageInfo<Sonsult>(list);
 
@@ -109,26 +129,5 @@ public class SonsultServiceImpl implements SonsultService {
             }
         }
         return 0;
-    }
-
-    @Override
-    public HashMap<String, Object> selectSonsultTotalByPage(SonsultTotal sonsultTotal) {
-        Subject subject = SecurityUtils.getSubject();
-        Session session = subject.getSession();
-        User user = (User)session.getAttribute("user");
-        //通过教师id查询综合评教
-        List<SonsultTotal> list = sonsultTotalMapper.selectSonsultTotalByUserSno(user.getUserId());
-        PageHelper.startPage(sonsultTotal.getPage(),sonsultTotal.getRow());
-        PageInfo<SonsultTotal> pageInfo = new PageInfo<>(list);
-        //获取班级评教平均分
-        int allCount = 0;
-        for (SonsultTotal s : list){
-            allCount += s.getSonsultTotalCount();
-        }
-        HashMap<String,Object> map = new HashMap<String,Object>();
-        map.put("list",pageInfo);
-
-
-        return null;
     }
 }

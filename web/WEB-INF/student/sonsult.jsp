@@ -23,6 +23,8 @@
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="${pageContext.request.contextPath}/static/js/jquery.min.js"></script>
+
 </head>
 <body onload="loadSonsult(1)">
 
@@ -51,14 +53,16 @@
 <script>
     var pPage;
     var nPage;
+
     //上一页
     function prePage() {
-        loadSonsult(pPage)
+        loadSonsultTotal(pPage)
     }
     //下一页
     function nextPage() {
-        loadSonsult(nPage)
+        loadSonsultTotal(nPage)
     }
+
     function loadSonsult(p) {
         $.ajax({
             url:"${pageContext.request.contextPath}/sonsultController/sonsult.ajax",

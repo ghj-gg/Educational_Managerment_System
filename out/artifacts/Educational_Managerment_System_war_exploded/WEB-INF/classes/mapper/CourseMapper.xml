@@ -232,4 +232,10 @@
       course_class_state = #{courseClassState,jdbcType=INTEGER}
     where course_id = #{courseId,jdbcType=INTEGER}
   </update>
+
+<!--通过UserSon查询-->
+  <select id="selectByUserSon" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select <include refid="Base_Column_List" />
+    from course where user_sno = #{userSno}
+  </select>
 </mapper>
